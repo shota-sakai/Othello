@@ -1,4 +1,4 @@
-package jp.com.othello;
+package jp.com.othello.controller;
 
 /**
  * ゲーム処理（状態）を扱うクラス

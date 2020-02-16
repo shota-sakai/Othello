@@ -2,15 +2,16 @@ package jp.com.othello;
 
 import java.awt.EventQueue;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+
+import jp.com.othello.controller.BoardController;
+import jp.com.othello.data.Board;
+import jp.com.othello.view.ViewBoard;
 
 public class MainForm extends JFrame {
 
-    private JPanel contentPane;
+	private static final int WINDOW_WIDTH_SIZE = 800;
+	private static final int WINDOW_HEIGHT_SIZE = 800;
 
     /**
      * Launch the application.
@@ -33,16 +34,13 @@ public class MainForm extends JFrame {
      */
     public MainForm() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 800);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
+        setResizable(false);
+		setBounds(100, 100, WINDOW_WIDTH_SIZE, WINDOW_HEIGHT_SIZE);
 
-        JLabel lblNewLabel = new JLabel("New label");
-        lblNewLabel.setBounds(52, 40, 55, 55);
-        ImageIcon icon = new ImageIcon("./img/white.png");
-        lblNewLabel.setIcon(icon);
-        contentPane.add(lblNewLabel);
+		Board board = new Board();
+		ViewBoard viewBoard = new ViewBoard();
+		BoardController controller = new BoardController();
+		viewBoard.setup(this, controller);
+		controller.setup(board, viewBoard);
     }
 }
