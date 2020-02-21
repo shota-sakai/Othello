@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import jp.com.othello.GridState;
+import jp.com.othello.StoneKind;
 import jp.com.othello.controller.BoardController;
 
 /**
@@ -52,7 +52,7 @@ public class ViewStone {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// 駒を置いた時の処理
-				controller.play(colume, row, GridState.BLACK_STONE);
+				controller.play(colume, row, StoneKind.BLACK);
 			}
 		});
 
@@ -64,10 +64,10 @@ public class ViewStone {
      *
      * @param state 駒の状態
      */
-    public void update( GridState state ) {
-    	if( state.equals(GridState.BLACK_STONE) ) {
+    public void update( StoneKind state ) {
+    	if( StoneKind.BLACK.equals(state) ) {
     		this.label.setIcon(BLACK_STONE_ICON);
-    	}else if( state.equals(GridState.WHITE_STONE) ) {
+    	}else if( StoneKind.WHITE.equals(state) ) {
     		this.label.setIcon(WHITE_STONE_ICON);
     	}else {
     		this.label.setIcon(null);

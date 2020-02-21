@@ -1,6 +1,6 @@
 package jp.com.othello.data;
 
-import jp.com.othello.GridState;
+import jp.com.othello.StoneKind;
 
 
 /**
@@ -12,16 +12,16 @@ public class Board {
 	// 縦方向のマス最大値
 	public static final int BOARD_COLUMN_MAX = 8;
 	// 盤面情報を表現する二次元配列
-	private GridState[][] boardInfo = {
-			{GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE},
-			{GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE},
-			{GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE},
-			{GridState.NONE, GridState.NONE, GridState.NONE, GridState.WHITE_STONE, GridState.BLACK_STONE, GridState.NONE, GridState.NONE, GridState.NONE},
-			{GridState.NONE, GridState.NONE, GridState.NONE, GridState.BLACK_STONE, GridState.WHITE_STONE, GridState.NONE, GridState.NONE, GridState.NONE},
-			{GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE},
-			{GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE},
-			{GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE, GridState.NONE}
-			};
+	private StoneKind[][] boardInfo = {
+		{null, null, null, null, null, null, null, null},
+		{null, null, null, null, null, null, null, null},
+		{null, null, null, null, null, null, null, null},
+		{null, null, null, StoneKind.WHITE, StoneKind.BLACK, null, null, null},
+		{null, null, null, StoneKind.BLACK, StoneKind.WHITE, null, null, null},
+		{null, null, null, null, null, null, null, null},
+		{null, null, null, null, null, null, null, null},
+		{null, null, null, null, null, null, null, null}
+	};
 
 	/**
 	 * コンストラクタ
@@ -31,24 +31,71 @@ public class Board {
 	/**
 	 * 盤面情報の配列を取得する
 	 *
-	 * @return GridStateの二次元配列
+	 * @return StoneKindの二次元配列
 	 */
-	public GridState[][] getBoardInfo(){
+	public StoneKind[][] getBoardInfo(){
 		return this.boardInfo;
 	}
 
 	/**
 	 * 盤面情報を更新する
 	 *
-	 * @param column　行
+	 * @param column 行
 	 * @param row 列
 	 * @param state 状態
 	 */
-	public void updateBoard( int column, int row, GridState state ) {
-		if( column >= BOARD_COLUMN_MAX || row >= BOARD_ROW_MAX ) {
+	public void updateBoard( int column, int row, StoneKind state ) {
+
+		// 指定された座標が盤面の範囲外の場合は更新しない
+		if( isValidRange(column, row) ) {
 			return;
 		}
 
 		boardInfo[column][row] = state;
 	}
+
+	/**
+	 * 指定した座標のマス状態を取得する
+	 *
+	 * @param column 行
+	 * @param row 列
+	 * @return マス状態
+	 */
+	public StoneKind getGridState( int column, int row) {
+
+		if( isValidRange(column, row) ) {
+			return null;
+		}
+
+		return boardInfo[column][row];
+	}
+
+	/**
+	 * 指定した状態のマスの数を取得する
+	 *
+	 * @return マスの数
+	 */
+	public int gridStateCnt( StoneKind kind ) {
+
+		int count = 0;
+		for( StoneKind[] c : boardInfo ) {
+			for( StoneKind r : c ) {
+				if( r == kind ) count++;
+			}
+		}
+
+		return count;
+	}
+
+	/**
+	 * 指定された座標が盤面の範囲内でどうかをチェックする
+	 *
+	 * @param column 行
+	 * @param row 列
+	 * @return 範囲外の場合はfalseを返す
+	 */
+	private boolean isValidRange( int column, int row ) {
+		return (column <= 1 && column >= Board.BOARD_COLUMN_MAX) && (row <= 1 && row >= Board.BOARD_ROW_MAX);
+	}
+
 }

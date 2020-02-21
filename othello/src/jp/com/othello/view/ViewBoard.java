@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import jp.com.othello.GridState;
+import jp.com.othello.StoneKind;
 import jp.com.othello.controller.BoardController;
 import jp.com.othello.data.Board;
 
@@ -65,7 +65,7 @@ public class ViewBoard {
 	 *
 	 * @param gridStates
 	 */
-	public void update(GridState[][] gridStates) {
+	public void update(StoneKind[][] gridStates) {
 		for( int c=0; c<Board.BOARD_COLUMN_MAX; c++ ) {
 			for( int r=0; r<Board.BOARD_ROW_MAX; r++ ) {
 				viewStones[c][r].update(gridStates[c][r]);
