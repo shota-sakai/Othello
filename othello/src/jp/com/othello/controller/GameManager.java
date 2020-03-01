@@ -67,4 +67,15 @@ public class GameManager {
 	public void setGameState(GameState state) {
 		this.state = state;
 	}
+
+	/**
+	 * プレイヤーターン状態を更新する
+	 */
+	public void updatePlayTurn(){
+		if( PlayerKind.BLACK.equals(this.playTurn) ) {
+			this.setPlayTurn(PlayerKind.WHITE);
+		}else if ( PlayerKind.WHITE.equals(this.playTurn) ){
+			this.setPlayTurn(PlayerKind.BLACK);
+		}
+	}
 }

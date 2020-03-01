@@ -46,6 +46,7 @@ public class ViewStone {
     	this.label = new JLabel("");
     	this.label.setBounds(this.colume*STONE_SIZE, this.row*STONE_SIZE, STONE_SIZE, STONE_SIZE);
     	this.label.setIcon(null);
+    	this.label.setText(this.colume + ", " + this.row);
 
     	// クリックイベント設定
     	this.label.addMouseListener(new MouseAdapter() {
